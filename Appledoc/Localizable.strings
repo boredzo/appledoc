@@ -1,0 +1,16 @@
+/****************************************************************************/
+/* Localization file */
+
+"First, last name" = "First, last name (%@)";
+"First, middle, last name" = "First, middle, last name (%@)";
+"Company name" = "Company name (%@)";
+"Nickname" = "Nickname (%@)";
+
+"Format string for developer name menu item titles" = "%@ (%@)";
+
+/*Generation completion notification*/
+"Documentation generated" = "Documentation generated";
+"Successfully generated %@ documentation" = "Successfully generated %@ documentation";
+"Change Project Source Folder" = "Change Project Source Folder";
+"Change Company ID" = "Change Company ID";
+"Change Company Name" = "Change Company Name";
