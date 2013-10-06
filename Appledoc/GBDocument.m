@@ -11,10 +11,14 @@ NAME_KEY(GBDocumentProjectSourceRootURL);
 static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 
 @implementation GBDocument
+{
+	NSPropertyListFormat _format;
+}
 
 - (id) init {
 	self = [super init];
 	if (self) {
+		_format = NSPropertyListXMLFormat_v1_0;
 	}
 	return self;
 }
@@ -28,8 +32,9 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 }
 
 - (BOOL) readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
-	NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+	NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:data
 		options:0
+		format:&_format
 		error:outError];
 
 	if (dict == nil || ! [dict isKindOfClass:[NSDictionary class]]) {
@@ -68,21 +73,8 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		if ( ! [value isKindOfClass:valueClass] ) {
 			usableValue = false;
 		} else if ([dictKey isEqualToString:GBDocumentProjectSourceRootURLKey]) {
-			NSData *bookmarkData;
-
+			NSData *bookmarkData = value;
 			NSError *error;
-			NSString *base64Str = value;
-			NSData *base64Data = [base64Str dataUsingEncoding:NSUTF8StringEncoding];
-			{
-				CFErrorRef secError = NULL;
-				SecTransformRef transform = SecDecodeTransformCreate(kSecBase64Encoding, &secError);
-				if (transform != NULL) {
-					bool setInputSucceeded = SecTransformSetAttribute(transform, kSecTransformInputAttributeName, (__bridge CFDataRef)base64Data, &secError);
-					if (setInputSucceeded) {
-						bookmarkData = (__bridge_transfer NSData *)SecTransformExecute(transform, &secError);
-					}
-				}
-			}
 
 			BOOL stale = NO;
 			if (bookmarkData != nil) {
@@ -127,27 +119,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 			relativeToURL:self.fileURL //TODO: Verify that this works (thinking not)
 			error:outError];
 
-		NSData *base64Data;
-		{
-			bool success = false;
-			CFErrorRef secError = NULL;
-			SecTransformRef base64Encoder = SecEncodeTransformCreate(kSecBase64Encoding, &secError);
-			if (base64Encoder != NULL)
-				success = SecTransformSetAttribute(base64Encoder, kSecTransformInputAttributeName, (__bridge CFDataRef)bookmarkData, &secError);
-			if (success) {
-				base64Data = (__bridge_transfer NSData *)SecTransformExecute(base64Encoder, &secError);
-				success = (bool)base64Data;
-			}
-
-			if ( ! success) {
-				*outError = (__bridge_transfer NSError *)secError;
-			}
-		}
-
-		if (base64Data != nil) {
-			NSString *base64Str = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
-			dict[GBDocumentProjectSourceRootURLKey] = base64Str;
-		}
+		dict[GBDocumentProjectSourceRootURLKey] = bookmarkData;
 	}
 	if (self.projectName != nil) {
 		dict[GBDocumentProjectNameKey] = self.projectName;
@@ -159,8 +131,9 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		dict[GBDocumentCompanyIDKey] = self.companyName;
 	}
 
-	return [NSJSONSerialization dataWithJSONObject:dict
-		options:NSJSONWritingPrettyPrinted
+	return [NSPropertyListSerialization dataWithPropertyList:dict
+		format:_format
+		options:0
 		error:outError];
 }
 
