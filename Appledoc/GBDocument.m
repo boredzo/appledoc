@@ -1,12 +1,9 @@
 #import <objc/runtime.h>
 #import "GBDocument.h"
 
-#define NAME_KEY(k) static NSString *const k##Key = @#k
-NAME_KEY(GBDocumentProjectName);
-NAME_KEY(GBDocumentCompanyName);
-NAME_KEY(GBDocumentCompanyID);
-NAME_KEY(GBDocumentProjectSourceRootURL);
-#undef NAME_KEY
+static NSString *const GBDocumentProjectNameKey = @"--project-name";
+static NSString *const GBDocumentCompanyNameKey = @"--project-company";
+static NSString *const GBDocumentCompanyIDKey = @"--company-id";
 
 static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 
@@ -52,8 +49,6 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		forPropertyKey:@"companyName"];
 	[self conditionallySetValueFromDictionary:dict forDictionaryKey:GBDocumentCompanyIDKey expectedValueClass:[NSString class]
 		forPropertyKey:@"companyID"];
-	[self conditionallySetValueFromDictionary:dict forDictionaryKey:GBDocumentProjectSourceRootURLKey expectedValueClass:[NSData class]
-		forPropertyKey:@"projectSourceRootURL"];
 
 	[undoManager enableUndoRegistration];
 
@@ -72,23 +67,6 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 	if (value != nil) {
 		if ( ! [value isKindOfClass:valueClass] ) {
 			usableValue = false;
-		} else if ([dictKey isEqualToString:GBDocumentProjectSourceRootURLKey]) {
-			NSData *bookmarkData = value;
-			NSError *error;
-
-			BOOL stale = NO;
-			if (bookmarkData != nil) {
-				value = [NSURL URLByResolvingBookmarkData:bookmarkData
-					options:0
-					relativeToURL:self.fileURL
-					bookmarkDataIsStale:&stale
-					error:&error];
-			}
-			if ((value == nil) || stale) {
-				if (error != nil)
-					[self presentError:error];
-				usableValue = false;
-			}
 		}
 	}
 
@@ -100,27 +78,9 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 	return usableValue;
 }
 
-- (BOOL) writeToURL:(NSURL *)URL ofType:(NSString *)typeName error:(NSError **)outError {
-	BOOL success = [super writeToURL:URL ofType:typeName error:outError];
-
-	if (self.projectSourceRootURL == nil) {
-		self.projectSourceRootURL = [URL URLByDeletingLastPathComponent];
-	}
-
-	return success;
-}
-
 - (NSData *) dataOfType:(NSString *)typeName error:(NSError **)outError {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:4];
 
-	if (self.projectSourceRootURL != nil) {
-		NSData *bookmarkData = [self.projectSourceRootURL bookmarkDataWithOptions:0
-			includingResourceValuesForKeys:@[ ]
-			relativeToURL:self.fileURL //TODO: Verify that this works (thinking not)
-			error:outError];
-
-		dict[GBDocumentProjectSourceRootURLKey] = bookmarkData;
-	}
 	if (self.projectName != nil) {
 		dict[GBDocumentProjectNameKey] = self.projectName;
 	}
@@ -140,7 +100,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 #pragma mark -
 
 + (NSArray *) restorableStateKeyPaths {
-	return @[ @"projectName", @"companyName", @"companyID", @"projectSourceRootURL" ];
+	return @[ @"projectName", @"companyName", @"companyID" ];
 }
 
 #pragma mark -
@@ -169,15 +129,14 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 }
 
 + (NSSet *) keyPathsForValuesAffectingCanGenerateDocumentationSet {
-	return [NSSet setWithArray:@[ @"projectName", @"companyName", @"companyID", @"projectSourceRootURL" ]];
+	return [NSSet setWithArray:@[ @"projectName", @"companyName", @"companyID" ]];
 }
 
 - (bool) canGenerateDocumentationSet {
 	return \
 		   (self.projectName != nil)
 		&& (self.companyName != nil)
-		&& (self.companyID != nil)
-		&& (self.projectSourceRootURL != nil);
+		&& (self.companyID != nil);
 }
 
 - (void) setProjectName:(NSString *)projectName {
@@ -199,21 +158,6 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 	[[undoManager prepareWithInvocationTarget:self] setCompanyID:self.companyID];
 	_companyID = [companyID copy];
 	[undoManager setActionName:NSLocalizedString(@"Change Company ID", @"Undo action names")];
-}
-
-- (void) setProjectSourceRootURL:(NSURL *)projectSourceRootURL {
-	NSUndoManager *undoManager = [self undoManager];
-	[undoManager beginUndoGrouping];
-
-	[[[self undoManager] prepareWithInvocationTarget:self] setProjectSourceRootURL:self.projectSourceRootURL];
-	_projectSourceRootURL = [projectSourceRootURL copy];
-
-	if (self.projectName == nil) {
-		self.projectName = [projectSourceRootURL lastPathComponent];
-	}
-
-	[undoManager endUndoGrouping];
-	[undoManager setActionName:NSLocalizedString(@"Change Project Source Folder", @"Undo action names")];
 }
 
 - (IBAction) generateDocumentationSet:(id)sender {
@@ -263,10 +207,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		@"--clean-output",
 		@"--templates", [templatesDirURL path],
 		@"--docset-install-path", [URL path],
-		@"--project-name", self.projectName,
-		@"--project-company", self.companyName,
-		@"--company-id", self.companyID,
-		[self.projectSourceRootURL path]
+		[[self.fileURL URLByDeletingLastPathComponent] path]
 	];
 	task.standardError = [NSPipe pipe];
 

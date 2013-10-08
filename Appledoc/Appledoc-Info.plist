@@ -9,17 +9,17 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>appleseed</string>
+				<string>plist</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>Appledoc seed</string>
+			<string>Appledoc settings plist</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.gentlebytes.appledoc.seed</string>
+				<string>com.apple.property-list</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
@@ -55,25 +55,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.json</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Appledoc seed</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.gentlebytes.appledoc.seed</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>appleseed</string>
-				</array>
-			</dict>
-		</dict>
-	</array>
 </dict>
 </plist>
