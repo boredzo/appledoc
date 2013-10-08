@@ -128,7 +128,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		dict[GBDocumentCompanyNameKey] = self.companyName;
 	}
 	if (self.companyID != nil) {
-		dict[GBDocumentCompanyIDKey] = self.companyName;
+		dict[GBDocumentCompanyIDKey] = self.companyID;
 	}
 
 	return [NSPropertyListSerialization dataWithPropertyList:dict
