@@ -1881,7 +1881,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "Appledoc/Appledoc-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Appledoc;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1905,7 +1905,7 @@
 				GCC_PREFIX_HEADER = "Appledoc/Appledoc-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "Appledoc/Appledoc-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = Appledoc;
 				WRAPPER_EXTENSION = app;
 			};
