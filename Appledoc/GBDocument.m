@@ -292,7 +292,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 				? @{ NSLocalizedFailureReasonErrorKey: stderrStr }
 				: nil;
 			NSError *error = [NSError errorWithDomain:GBAppledocErrorDomain code:exitedTask.terminationStatus userInfo:userInfo];
-			[self presentError:error];
+			[self performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
 		}
 	};
 
