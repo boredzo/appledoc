@@ -205,6 +205,7 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 	task.arguments = @[
 		@"--output", [tempDirURL path],
 		@"--clean-output",
+		@"--finalize-docset",
 		@"--templates", [templatesDirURL path],
 		@"--docset-install-path", [URL path],
 		[[self.fileURL URLByDeletingLastPathComponent] path]
