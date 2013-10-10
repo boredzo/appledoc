@@ -207,7 +207,8 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 		@"--clean-output",
 		@"--finalize-docset",
 		@"--templates", [templatesDirURL path],
-		@"--docset-install-path", [URL path],
+		@"--docset-install-path", [[URL URLByDeletingLastPathComponent] path],
+		@"--docset-bundle-filename", [URL lastPathComponent],
 		[[self.fileURL URLByDeletingLastPathComponent] path]
 	];
 	task.standardError = [NSPipe pipe];
