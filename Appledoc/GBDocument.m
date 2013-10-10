@@ -217,7 +217,6 @@ static NSString *const GBAppledocErrorDomain = @"GBAppledocErrorDomain";
 	[task.arguments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		argsForLogging[idx] = [NSString stringWithFormat:@"'%@'", obj];
 	}];
-	NSLog(@"Running %@ %@", task.launchPath, [argsForLogging componentsJoinedByString:@" "]);
 
 	task.terminationHandler = ^(NSTask *exitedTask) {
 		if (exitedTask.terminationStatus == EXIT_SUCCESS) {
