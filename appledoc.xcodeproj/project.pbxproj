@@ -10,11 +10,11 @@
 		1B2A606E267F17D80717E0C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B2A65F2A6D19F47068A2815 /* Localizable.strings */; };
 		1B2A61ACC701B56C3651551E /* GBDocument+GBComboBoxDataSourceConformance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A6DC9D22C550AD370DC73 /* GBDocument+GBComboBoxDataSourceConformance.m */; };
 		1B2A6CDBCBC7995AAFE1D3C3 /* GBDocument+GBDeveloperNameFromAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A63E11CD2325B813E4514 /* GBDocument+GBDeveloperNameFromAddressBook.m */; };
-		31DBC2AE18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */; };
-		31DBC2AF18060EFF002AFE9F /* GBDocSetFinalizeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */; };
 		3158D3F717FFB4FD0003EAAD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3158D3F617FFB4FD0003EAAD /* AddressBook.framework */; };
 		31D13F2717FFF1C700FF1822 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 31D13F2617FFF1C700FF1822 /* Templates */; };
 		31D13F2917FFF59700FF1822 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D13F2817FFF59700FF1822 /* Security.framework */; };
+		31DBC2AE18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */; };
+		31DBC2AF18060EFF002AFE9F /* GBDocSetFinalizeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */; };
 		31F2D19D17FFAB990062F7DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F2D19C17FFAB990062F7DD /* Cocoa.framework */; };
 		31F2D1A717FFAB9A0062F7DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31F2D1A517FFAB9A0062F7DD /* InfoPlist.strings */; };
 		31F2D1A917FFAB9A0062F7DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F2D1A817FFAB9A0062F7DD /* main.m */; };
@@ -288,12 +288,12 @@
 		1B2A65F2A6D19F47068A2815 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		1B2A686668F2F4AF2D433B1C /* GBDocument+GBDeveloperNameFromAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBDocument+GBDeveloperNameFromAddressBook.h"; sourceTree = "<group>"; };
 		1B2A6A3859FF91A990C64B36 /* GBDocument+GBComboBoxDataSourceConformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GBDocument+GBComboBoxDataSourceConformance.h"; sourceTree = "<group>"; };
-		31DBC2AC18060C3C002AFE9F /* GBDocSetFinalizeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBDocSetFinalizeGenerator.h; sourceTree = "<group>"; };
-		31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDocSetFinalizeGenerator.m; sourceTree = "<group>"; };
 		1B2A6DC9D22C550AD370DC73 /* GBDocument+GBComboBoxDataSourceConformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GBDocument+GBComboBoxDataSourceConformance.m"; sourceTree = "<group>"; };
 		3158D3F617FFB4FD0003EAAD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		31D13F2617FFF1C700FF1822 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = SOURCE_ROOT; };
 		31D13F2817FFF59700FF1822 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		31DBC2AC18060C3C002AFE9F /* GBDocSetFinalizeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBDocSetFinalizeGenerator.h; sourceTree = "<group>"; };
+		31DBC2AD18060C3C002AFE9F /* GBDocSetFinalizeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDocSetFinalizeGenerator.m; sourceTree = "<group>"; };
 		31F2D19A17FFAB990062F7DD /* Appledoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Appledoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31F2D19C17FFAB990062F7DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		31F2D19F17FFAB990062F7DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
